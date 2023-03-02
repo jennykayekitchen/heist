@@ -1,12 +1,16 @@
 ﻿using System;
 
-namespace heist
+namespace Heist
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Plan Your Heist!");
+            Console.WriteLine("What is your name?");
+            TeamMember theTeamMember = new TeamMember(Console.ReadLine(), teamMemberSkill, teamMemberCourage);
+
+            
         }
     }
 }
