@@ -9,33 +9,40 @@ namespace Heist
         static void Main(string[] args)
         {
             Console.WriteLine("Plan Your Heist!");
-            Dictionary<string, TeamMember> team1 = new Dictionary<string, TeamMember>();
 
+            Random r = new Random();
+            int luck = r.Next(-10, 10);
+            
             Bank targetBank = new Bank()
             {
                 DifficultyLevel = 100
             };
 
+            targetBank.DifficultyLevel = luck + targetBank.DifficultyLevel;
 
-            string response = "y";
+            Dictionary<string, TeamMember> team1 = new Dictionary<string, TeamMember>();
+            string name = "YOUR MOM";            
 
-            while (response == "y")
+            while (name != "")
             {
 
-                Console.WriteLine("What is the team member's name?");
+                Console.WriteLine("What is the team member's name? (Press enter to stop entering names and view your team information.)");
+                name = Console.ReadLine();
 
-                string name = Console.ReadLine();
-
+                if (name=="")
+                {
+                    continue;
+                }
+               
                 // foreach (KeyValuePair<string, TeamMember> t in team1)
                 // {
                 //     Console.WriteLine(t.Value.Stringify());
                 // }
-                // break;
-
-                Console.WriteLine($"What is {name}'s skill level?");
+               
+                Console.WriteLine($"What is {name}'s skill level (1 - 100)?");
                 int skill = int.Parse(Console.ReadLine());
 
-                Console.WriteLine($"On a scale of 0.0 - 2.0, what is {name}'s courage factor?");
+                Console.WriteLine($"What is {name}'s courage factor (0.0 - 2.0)?");
                 double courage = Convert.ToDouble(Console.ReadLine());
 
                 TeamMember newMember = new TeamMember(name, skill, courage);
@@ -44,22 +51,24 @@ namespace Heist
 
                 team1.Add($"{newMember.Name}", newMember);
 
+
+                // Console.WriteLine("Would you like to enter another team member? Y/N:");
+                // response = Console.ReadLine().ToLower();
+
+            }
                 int teamSkillLevel = team1.Sum(x => x.Value.SkillLevel);
                 
+                Console.WriteLine($"Based on your current team of {team1.Count}, your combined skill level is: {teamSkillLevel}. The bank's difficulty level is: {targetBank.DifficultyLevel}.");
+
                 if (teamSkillLevel < targetBank.DifficultyLevel)
                 {
-                    Console.WriteLine($"Based on your current team of {team1.Count} and combined skill level of {teamSkillLevel}, your heist will FAIL.");
+                    Console.WriteLine("Your heist will FAIL.");
                 }
 
                 else
                 {
-                    Console.WriteLine($"Based on your current team of {team1.Count} and combined skill level of {teamSkillLevel}, your heist will SUCCEED.");
+                    Console.WriteLine("Your heist will SUCCEED.");
                 }
-
-                Console.WriteLine("Would you like to enter another team member? Y/N:");
-                response = Console.ReadLine().ToLower();
-
-            }
 
 
 
